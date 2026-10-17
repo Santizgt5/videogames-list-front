@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "../api/client";
 import type { EntryInput, Game, GameStatus, LibraryEntry } from "../api/types";
 import { STATUSES, year } from "../lib/status";
-import { thumb } from "./Cover";
+import { thumb } from "../lib/images";
 
 export type EditorTarget = { kind: "entry"; id: number } | { kind: "new"; game: Game };
 
