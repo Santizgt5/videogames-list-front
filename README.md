@@ -35,3 +35,10 @@ src/
 - `npm run build`: compila para producción en `dist/`
 - `npm run preview`: sirve el build
 - `npm run lint`: revisa el código con oxlint
+
+## Despliegue (Vercel)
+
+Vercel detecta Vite solo. `vercel.json` hace dos cosas:
+
+- Reenvía `/api/*` al backend (otro proyecto de Vercel). Así el navegador ve un solo dominio y la cookie de sesión y la vuelta de Steam funcionan igual que en local. Si el backend cambia de URL, actualízala ahí.
+- Sirve `index.html` en cualquier otra ruta, para que recargar `/estadisticas` o `/steam` no dé 404.
