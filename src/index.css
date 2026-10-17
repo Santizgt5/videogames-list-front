@@ -12,6 +12,9 @@
   --color-muted: #9aa0bf;
   --color-score: #f2c14e;
 
+  /* Gráficas: un solo acento (validado sobre --color-panel) que no choca con los estados */
+  --color-chart: #9085e9;
+
   /* Un color por estado, como los botones de un mando */
   --color-st-playing: #5b8def;
   --color-st-completed: #3fbf8f;

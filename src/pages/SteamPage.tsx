@@ -7,13 +7,14 @@ import { STATUSES } from "../lib/status";
 import { Cover } from "../components/Cover";
 import { StatusLabel } from "../components/StatusDot";
 import { EntryEditor, type EditorTarget } from "../components/EntryEditor";
+import { SteamLogo } from "../components/SteamLogo";
 
 type Tab = "add" | "list" | "all";
 type ImportStatus = GameStatus | "AUTO";
 
 /** Recarga todo lo que puede cambiar tras sincronizar o importar */
 function refreshAll(qc: QueryClient) {
-  for (const key of ["steam", "steam-games", "steam-achievements", "library", "stats", "entry", "search"]) {
+  for (const key of ["steam", "steam-games", "steam-achievements", "library", "stats", "stats-page", "entry", "search"]) {
     qc.invalidateQueries({ queryKey: [key] });
   }
 }
@@ -207,8 +208,8 @@ function Connected({ status }: { status: SteamStatus }) {
       {list.length > 0 && (
         <dl className="mb-8 grid max-w-2xl grid-cols-3 gap-4">
           <Stat label="Juegos jugados" value={`${totals.played}`} sub={`de ${list.length}`} />
-          <Stat label="Horas" value={Math.round(totals.hours).toLocaleString("es")} />
-          <Stat label="Logros" value={totals.unlocked.toLocaleString("es")} />
+          <Stat label="Horas" value={Math.round(totals.hours).toLocaleString("es-CO")} />
+          <Stat label="Logros" value={totals.unlocked.toLocaleString("es-CO")} />
         </dl>
       )}
 
@@ -509,7 +510,7 @@ function TabButton({ active, onClick, children }: { active: boolean; onClick: ()
 
 /* ---------- Utilidades ---------- */
 
-const formatHours = (h: number) => (h < 10 ? h.toLocaleString("es", { maximumFractionDigits: 1 }) : Math.round(h).toLocaleString("es"));
+const formatHours = (h: number) => (h < 10 ? h.toLocaleString("es-CO", { maximumFractionDigits: 1 }) : Math.round(h).toLocaleString("es-CO"));
 
 function timeAgo(iso: string) {
   const rtf = new Intl.RelativeTimeFormat("es", { numeric: "auto" });
@@ -528,15 +529,6 @@ function SyncIcon({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden className={className}>
       <path d="M16 10a6 6 0 0 1-10.4 4.1M4 10a6 6 0 0 1 10.4-4.1" />
       <path d="M14.5 2.5v3.6h-3.6M5.5 17.5v-3.6h3.6" />
-    </svg>
-  );
-}
-
-export function SteamLogo({ className = "" }: { className?: string }) {
-  // Logo simplificado de Steam (rueda + biela)
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
-      <path d="M12 2a10 10 0 0 0-9.96 9.2l5.36 2.22a2.83 2.83 0 0 1 1.6-.5h.16l2.39-3.46v-.05a3.78 3.78 0 1 1 3.78 3.78h-.09l-3.4 2.43v.13a2.84 2.84 0 0 1-5.62.57L2.4 14.8A10 10 0 1 0 12 2Zm-4.29 15.17-1.23-.51a2.13 2.13 0 1 0 1.17-2.9l1.27.53a1.57 1.57 0 1 1-1.2 2.89Zm9.56-7.76a2.52 2.52 0 1 0-2.52 2.52 2.52 2.52 0 0 0 2.52-2.52Zm-4.4 0a1.89 1.89 0 1 1 1.88 1.9 1.89 1.89 0 0 1-1.88-1.9Z" />
     </svg>
   );
 }

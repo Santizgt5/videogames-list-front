@@ -4,6 +4,7 @@ import { api } from "../api/client";
 import type { EntryInput, Game, GameStatus, LibraryEntry } from "../api/types";
 import { STATUSES, year } from "../lib/status";
 import { igdbImage } from "../lib/images";
+import { genreName } from "../lib/genres";
 import { Cover } from "./Cover";
 import { SteamAchievements } from "./SteamAchievements";
 
@@ -61,6 +62,7 @@ function EditorForm({ game, entry, onClose }: { game: Game; entry?: LibraryEntry
   const refresh = () => {
     qc.invalidateQueries({ queryKey: ["library"] });
     qc.invalidateQueries({ queryKey: ["stats"] });
+    qc.invalidateQueries({ queryKey: ["stats-page"] });
     qc.invalidateQueries({ queryKey: ["search"] });
     qc.invalidateQueries({ queryKey: ["entry"] });
   };
@@ -132,7 +134,7 @@ function EditorForm({ game, entry, onClose }: { game: Game; entry?: LibraryEntry
           <div className="min-w-0 pb-1">
             <h2 className="font-display text-2xl leading-tight font-extrabold text-balance">{game.name}</h2>
             <p className="mt-1 text-sm text-muted">
-              {[year(game.released), game.genres.slice(0, 2).join(", ")].filter(Boolean).join(". ")}
+              {[year(game.released), game.genres.slice(0, 2).map(genreName).join(", ")].filter(Boolean).join(". ")}
             </p>
             {game.criticScore !== null && (
               <p className="mt-1 text-sm text-muted">

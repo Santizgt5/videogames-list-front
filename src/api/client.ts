@@ -5,6 +5,7 @@ import type {
   SearchResponse,
   SortKey,
   Stats,
+  StatsPageData,
   SteamAchievements,
   SteamGame,
   SteamStatus,
@@ -72,6 +73,7 @@ export const api = {
   search: (q: string, page = 1) => request<SearchResponse>(`/games/search${qs({ q, page })}`),
   library: (f: LibraryFilters = {}) => request<LibraryEntry[]>(`/library${qs({ ...f })}`),
   stats: () => request<Stats>("/library/stats"),
+  statsPage: () => request<StatsPageData>("/stats"),
   entry: (id: number) => request<LibraryEntry>(`/library/${id}`),
   add: (gameId: number, data: EntryInput = {}) =>
     request<LibraryEntry>("/library", { method: "POST", body: JSON.stringify({ gameId, ...data }) }),

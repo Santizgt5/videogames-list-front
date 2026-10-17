@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
 import type { User } from "../api/types";
+import { SteamLogo } from "./SteamLogo";
 
 export function UserMenu({ user, onLogout, loggingOut }: { user: User; onLogout: () => void; loggingOut: boolean }) {
   const [open, setOpen] = useState(false);
@@ -51,11 +53,20 @@ export function UserMenu({ user, onLogout, loggingOut }: { user: User; onLogout:
             <p className="font-bold">@{user.username}</p>
             <p className="truncate text-sm text-muted">{user.email}</p>
           </div>
+          <Link
+            to="/steam"
+            role="menuitem"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2.5 px-4 py-2.5 transition hover:bg-panel-2"
+          >
+            <SteamLogo className="size-4 text-muted" />
+            Conexión con Steam
+          </Link>
           <button
             role="menuitem"
             onClick={onLogout}
             disabled={loggingOut}
-            className="w-full px-4 py-2.5 text-left text-st-dropped transition hover:bg-panel-2 disabled:opacity-60"
+            className="w-full border-t border-line px-4 py-2.5 text-left text-st-dropped transition hover:bg-panel-2 disabled:opacity-60"
           >
             {loggingOut ? "Cerrando sesión…" : "Cerrar sesión"}
           </button>

@@ -119,3 +119,27 @@ export interface SyncResult {
   achievementsFailed: number;
   entriesUpdated: number; // entradas de tu lista con horas o fechas actualizadas
 }
+
+export interface StatsPageData {
+  totals: {
+    games: number;
+    completed: number;
+    playing: number;
+    favorites: number;
+    hours: number;
+    averageScore: number | null;
+  };
+  completedByYear: { year: number; count: number; hours: number; games: string[] }[];
+  completedWithoutDate: number;
+  genres: { genre: string; games: number; hours: number; averageScore: number | null }[];
+  scores: { score: number; count: number }[];
+  topHours: { entryId: number; name: string; coverUrl: string | null; hours: number; status: GameStatus }[];
+  steam: {
+    achievements: number;
+    perfectGames: number;
+    gamesWithAchievements: number;
+    achievementsByMonth: { month: string; count: number }[]; // "YYYY-MM"
+    rarest: { game: string; name: string; description: string; icon: string; percent: number; unlockedAt: string | null }[];
+    closest: { appId: number; name: string; coverUrl: string | null; unlocked: number; total: number }[];
+  } | null;
+}

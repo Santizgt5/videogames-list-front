@@ -76,7 +76,7 @@ function AchievementRow({ a }: { a: SteamAchievement }) {
       <div className="shrink-0 text-right text-xs">
         {a.percent !== null && (
           <p className={rare ? "font-bold text-score" : "text-muted"} title="Jugadores que lo tienen">
-            {a.percent.toLocaleString("es", { maximumFractionDigits: 1 })} %
+            {a.percent.toLocaleString("es-CO", { maximumFractionDigits: 1 })} %
           </p>
         )}
         {a.unlockedAt && <p className="text-muted">{new Date(a.unlockedAt).toLocaleDateString("es")}</p>}

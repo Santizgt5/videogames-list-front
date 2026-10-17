@@ -6,10 +6,11 @@ import { AuthPage } from "./pages/AuthPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { SearchPage } from "./pages/SearchPage";
 import { SteamPage } from "./pages/SteamPage";
+import { StatsPage } from "./pages/StatsPage";
 import { UserMenu } from "./components/UserMenu";
 
 const navCls = ({ isActive }: { isActive: boolean }) =>
-  `rounded-md px-3 py-1.5 transition ${isActive ? "bg-panel-2 font-bold text-text" : "text-muted hover:text-text"}`;
+  `rounded-md px-3 py-1.5 whitespace-nowrap transition ${isActive ? "bg-panel-2 font-bold text-text" : "text-muted hover:text-text"}`;
 
 export default function App() {
   const qc = useQueryClient();
@@ -26,24 +27,25 @@ export default function App() {
 
   return (
     <div className="mx-auto min-h-screen max-w-7xl px-4 sm:px-6">
-      <header className="flex flex-wrap items-center justify-between gap-3 py-5">
-        <NavLink to="/" className="flex items-center gap-2.5 font-display text-xl font-extrabold">
+      <header className="flex flex-wrap items-center justify-between gap-x-3 gap-y-3 py-5">
+        <NavLink to="/" className="order-1 flex items-center gap-2.5 font-display text-xl font-extrabold">
           <img src="/favicon.svg" alt="" className="size-7" />
           Backlog
         </NavLink>
-        <div className="flex items-center gap-2">
-          <nav className="flex gap-1">
-            <NavLink to="/" end className={navCls}>
-              Mi lista
-            </NavLink>
-            <NavLink to="/buscar" className={navCls}>
-              Buscar
-            </NavLink>
-            <NavLink to="/steam" className={navCls}>
-              Steam
-            </NavLink>
-          </nav>
-          <span aria-hidden="true" className="mx-1 h-6 w-px bg-line" />
+        {/* En el celular la navegación baja a su propia fila */}
+        <nav className="order-3 flex w-full gap-1 sm:order-2 sm:ml-auto sm:w-auto">
+          <NavLink to="/" end className={navCls}>
+            Mi lista
+          </NavLink>
+          <NavLink to="/buscar" className={navCls}>
+            Buscar
+          </NavLink>
+          <NavLink to="/estadisticas" className={navCls}>
+            Estadísticas
+          </NavLink>
+        </nav>
+        <div className="order-2 flex items-center sm:order-3">
+          <span aria-hidden="true" className="mr-2 hidden h-6 w-px bg-line sm:block" />
           <UserMenu user={me.data} onLogout={() => logout.mutate()} loggingOut={logout.isPending} />
         </div>
       </header>
@@ -52,6 +54,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<LibraryPage />} />
           <Route path="/buscar" element={<SearchPage />} />
+          <Route path="/estadisticas" element={<StatsPage />} />
           <Route path="/steam" element={<SteamPage />} />
         </Routes>
       </main>

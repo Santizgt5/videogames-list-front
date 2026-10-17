@@ -5,6 +5,7 @@ import { api } from "../api/client";
 import type { GameSummary } from "../api/types";
 import { year } from "../lib/status";
 import { Cover } from "../components/Cover";
+import { genreName } from "../lib/genres";
 import { StatusLabel } from "../components/StatusDot";
 import { EntryEditor, type EditorTarget } from "../components/EntryEditor";
 
@@ -70,7 +71,7 @@ export function SearchPage() {
               <Cover src={g.coverUrl} name={g.name} className="aspect-[3/4] w-full" />
             </div>
             <h3 className="mt-2 line-clamp-2 font-display leading-tight font-bold">{g.name}</h3>
-            <p className="text-sm text-muted">{[year(g.released), g.genres[0]].filter(Boolean).join(", ")}</p>
+            <p className="text-sm text-muted">{[year(g.released), g.genres[0] && genreName(g.genres[0])].filter(Boolean).join(", ")}</p>
             <div className="mt-2">
               {g.libraryEntry ? (
                 <StatusLabel status={g.libraryEntry.status} />
