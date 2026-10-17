@@ -58,3 +58,64 @@ export interface Stats {
 }
 
 export type SortKey = "updated" | "added" | "name" | "score" | "hours" | "released";
+
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  createdAt: string;
+}
+
+export interface SteamStatus {
+  configured: boolean; // hay STEAM_API_KEY en el backend
+  connected: boolean;
+  steamId: string | null;
+  name: string | null;
+  avatar: string | null;
+  syncedAt: string | null;
+}
+
+export interface SteamGame {
+  appId: number;
+  name: string;
+  playtimeMinutes: number;
+  playtime2Weeks: number;
+  hours: number;
+  lastPlayedAt: string | null;
+  igdbId: number | null;
+  igdbCoverUrl: string | null;
+  capsuleUrl: string;
+  achievementsTotal: number;
+  achievementsUnlocked: number;
+  libraryEntry: EntryRef | null;
+}
+
+export interface SteamAchievement {
+  apiName: string;
+  name: string;
+  description: string;
+  icon: string;
+  iconGray: string;
+  hidden: boolean;
+  unlocked: boolean;
+  unlockedAt: string | null;
+  percent: number | null;
+}
+
+export interface SteamAchievements {
+  appId: number;
+  name: string;
+  hours: number;
+  achievementsTotal: number;
+  achievementsUnlocked: number;
+  achievements: SteamAchievement[];
+}
+
+export interface SyncResult {
+  games: number;
+  played: number;
+  matched: number;
+  achievementsChecked: number;
+  achievementsFailed: number;
+  hoursUpdated: number;
+}

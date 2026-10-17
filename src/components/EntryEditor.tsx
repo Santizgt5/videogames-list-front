@@ -5,6 +5,7 @@ import type { EntryInput, Game, GameStatus, LibraryEntry } from "../api/types";
 import { STATUSES, year } from "../lib/status";
 import { igdbImage } from "../lib/images";
 import { Cover } from "./Cover";
+import { SteamAchievements } from "./SteamAchievements";
 
 export type EditorTarget = { kind: "entry"; id: number } | { kind: "new"; game: Game };
 
@@ -143,6 +144,8 @@ function EditorForm({ game, entry, onClose }: { game: Game; entry?: LibraryEntry
       </header>
 
       <div className="flex flex-1 flex-col gap-6 px-6 pt-6 pb-6">
+        <SteamAchievements igdbId={game.id} />
+
         <fieldset>
           <legend className="mb-2 font-bold">Estado</legend>
           <div className="flex flex-wrap gap-2">

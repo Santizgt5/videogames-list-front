@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { igdbImage } from "../lib/images";
 
 interface Props {
@@ -8,7 +9,8 @@ interface Props {
 
 export function Cover({ src, name, className = "" }: Props) {
   const url = igdbImage(src, "cover_big_2x");
-  if (!url) {
+  const [failed, setFailed] = useState<string | null>(null);
+  if (!url || failed === url) {
     const initials = name
       .split(/\s+/)
       .slice(0, 2)
@@ -23,5 +25,5 @@ export function Cover({ src, name, className = "" }: Props) {
       </div>
     );
   }
-  return <img src={url} alt="" loading="lazy" className={`object-cover ${className}`} />;
+  return <img src={url} alt="" loading="lazy" onError={() => setFailed(url)} className={`object-cover ${className}`} />;
 }
