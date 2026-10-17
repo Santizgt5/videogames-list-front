@@ -117,5 +117,5 @@ export interface SyncResult {
   matched: number;
   achievementsChecked: number;
   achievementsFailed: number;
-  hoursUpdated: number;
+  entriesUpdated: number; // entradas de tu lista con horas o fechas actualizadas
 }

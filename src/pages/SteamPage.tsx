@@ -196,7 +196,9 @@ function Connected({ status }: { status: SteamStatus }) {
         <Banner tone="ok">
           {sync.data.games} juegos, {sync.data.matched} reconocidos.{" "}
           {sync.data.achievementsChecked > 0 && <>Logros leídos de {sync.data.achievementsChecked}. </>}
-          {sync.data.hoursUpdated > 0 && <>Horas actualizadas en {sync.data.hoursUpdated} juegos de tu lista. </>}
+          {sync.data.entriesUpdated > 0 && (
+            <>Horas o fechas actualizadas en {sync.data.entriesUpdated} juegos de tu lista. </>
+          )}
           {sync.data.achievementsFailed > 0 && <>No se pudieron leer los logros de {sync.data.achievementsFailed}.</>}
         </Banner>
       )}
