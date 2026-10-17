@@ -67,7 +67,7 @@ export function SearchPage() {
         {results.map((g) => (
           <button key={g.id} onClick={() => open(g)} className="group text-left">
             <div className="relative overflow-hidden rounded-md ring-1 ring-line transition group-hover:ring-muted">
-              <Cover src={g.coverUrl} name={g.name} className="aspect-[4/3] w-full" />
+              <Cover src={g.coverUrl} name={g.name} className="aspect-[3/4] w-full" />
             </div>
             <h3 className="mt-2 line-clamp-2 font-display leading-tight font-bold">{g.name}</h3>
             <p className="text-sm text-muted">{[year(g.released), g.genres[0]].filter(Boolean).join(", ")}</p>

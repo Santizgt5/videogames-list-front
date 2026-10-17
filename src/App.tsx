@@ -32,8 +32,8 @@ export default function App() {
 
       <footer className="border-t border-line py-6 text-sm text-muted">
         Datos e imágenes de{" "}
-        <a href="https://rawg.io" target="_blank" rel="noreferrer" className="underline hover:text-text">
-          RAWG
+        <a href="https://www.igdb.com" target="_blank" rel="noreferrer" className="underline hover:text-text">
+          IGDB
         </a>
         .
       </footer>

@@ -1,4 +1,4 @@
-import { thumb } from "../lib/images";
+import { igdbImage } from "../lib/images";
 
 interface Props {
   src: string | null;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function Cover({ src, name, className = "" }: Props) {
-  const url = thumb(src);
+  const url = igdbImage(src, "cover_big_2x");
   if (!url) {
     const initials = name
       .split(/\s+/)

@@ -3,7 +3,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "../api/client";
 import type { EntryInput, Game, GameStatus, LibraryEntry } from "../api/types";
 import { STATUSES, year } from "../lib/status";
-import { thumb } from "../lib/images";
+import { igdbImage } from "../lib/images";
+import { Cover } from "./Cover";
 
 export type EditorTarget = { kind: "entry"; id: number } | { kind: "new"; game: Game };
 
@@ -100,18 +101,18 @@ function EditorForm({ game, entry, onClose }: { game: Game; entry?: LibraryEntry
     });
   }
 
-  const cover = thumb(game.coverUrl, 1280);
+  const background = igdbImage(game.backgroundUrl ?? game.coverUrl, "screenshot_big");
   const error = save.error ?? remove.error;
 
   return (
     <form onSubmit={submit} className="flex flex-1 flex-col">
       <header className="relative">
-        {cover ? (
-          <img src={cover} alt="" className="h-48 w-full object-cover" />
+        {background ? (
+          <img src={background} alt="" className="h-40 w-full object-cover" />
         ) : (
           <div className="h-24 bg-panel-2" />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-panel via-panel/40 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-panel to-transparent to-70%" />
         <button
           type="button"
           onClick={onClose}
@@ -120,15 +121,28 @@ function EditorForm({ game, entry, onClose }: { game: Game; entry?: LibraryEntry
         >
           ×
         </button>
-        <div className="absolute inset-x-0 bottom-0 px-6 pb-2">
-          <h2 className="font-display text-3xl leading-none font-extrabold text-balance">{game.name}</h2>
-          <p className="mt-1.5 text-sm text-muted">
-            {[year(game.released), game.genres.slice(0, 3).join(", ")].filter(Boolean).join(". ")}
-          </p>
+
+        <div className="relative -mt-14 flex items-end gap-4 px-6">
+          <Cover
+            src={game.coverUrl}
+            name={game.name}
+            className="aspect-[3/4] w-24 shrink-0 rounded-md shadow-lg ring-1 ring-line"
+          />
+          <div className="min-w-0 pb-1">
+            <h2 className="font-display text-2xl leading-tight font-extrabold text-balance">{game.name}</h2>
+            <p className="mt-1 text-sm text-muted">
+              {[year(game.released), game.genres.slice(0, 2).join(", ")].filter(Boolean).join(". ")}
+            </p>
+            {game.criticScore !== null && (
+              <p className="mt-1 text-sm text-muted">
+                Crítica: <span className="font-bold text-text">{game.criticScore}</span>/100
+              </p>
+            )}
+          </div>
         </div>
       </header>
 
-      <div className="flex flex-1 flex-col gap-6 px-6 pt-4 pb-6">
+      <div className="flex flex-1 flex-col gap-6 px-6 pt-6 pb-6">
         <fieldset>
           <legend className="mb-2 font-bold">Estado</legend>
           <div className="flex flex-wrap gap-2">

@@ -5,34 +5,25 @@ export interface EntryRef {
   status: GameStatus;
 }
 
-export interface GameSummary {
-  id: number;
+export interface Game {
+  id: number; // id de IGDB
   slug: string;
   name: string;
   coverUrl: string | null;
+  backgroundUrl: string | null;
   released: string | null;
-  metacritic: number | null;
-  rating: number;
+  criticScore: number | null; // 0-100
   genres: string[];
   platforms: string[];
+}
+
+export interface GameSummary extends Game {
   libraryEntry: EntryRef | null;
 }
 
 export interface SearchResponse {
-  count: number;
   hasMore: boolean;
   results: GameSummary[];
-}
-
-export interface Game {
-  id: number;
-  slug: string;
-  name: string;
-  coverUrl: string | null;
-  released: string | null;
-  metacritic: number | null;
-  genres: string[];
-  platforms: string[];
 }
 
 export interface LibraryEntry {
